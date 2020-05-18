@@ -1,0 +1,2 @@
+class BookSetting < ApplicationRecord
+end

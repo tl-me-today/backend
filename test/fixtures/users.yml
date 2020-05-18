@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  money: 1.5
+  rating: 1.5
+  contacts_id: 1
+  settings_id: 1
+  group_id: 1
+
+two:
+  name: MyString
+  money: 1.5
+  rating: 1.5
+  contacts_id: 1
+  settings_id: 1
+  group_id: 1
