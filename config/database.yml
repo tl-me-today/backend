@@ -17,6 +17,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  host: 192.168.0.102
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -25,8 +26,8 @@ development:
   <<: *default
   database: tl_today_development
   username: postgres
-  password: 
-  host: localhost
+  password: Frylin2019
+  host: 192.168.0.102
   port: 5432
 
   # Schema search path. The server defaults to $user,public
@@ -45,7 +46,7 @@ test:
   <<: *default
   database: tl_today_test
   username: postgres
-  password: 
+  password: Frylin2019
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
