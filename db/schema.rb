@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_19_202051) do
+ActiveRecord::Schema.define(version: 2020_05_20_182615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,13 +37,13 @@ ActiveRecord::Schema.define(version: 2020_05_19_202051) do
     t.integer "group_id"
     t.integer "catalog_id"
     t.float "amount"
-    t.jsonb "tags_ids"
-    t.jsonb "genre_ids"
     t.integer "book_settings_id"
     t.float "rating"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
+    t.text "tags_ids", default: [], array: true
+    t.text "genre_ids", default: [], array: true
   end
 
   create_table "chapters", force: :cascade do |t|
