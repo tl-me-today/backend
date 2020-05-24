@@ -8,6 +8,7 @@ Rails.application.configure do
   config.hosts << "rails"
   # Do not eager load code on boot.
   config.eager_load = false
+  config.action_mailer.default_url_options = { host: :host, port: 3000 }
 
   # Show full error reports.
   config.consider_all_requests_local = true

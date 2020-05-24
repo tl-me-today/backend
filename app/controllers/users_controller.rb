@@ -6,14 +6,14 @@ class UsersController < ApplicationController
   before_action :find_user, only: [:show]
 
   def index
-    render json: @users
+    render json: @find_users
   end
 
   def show
     if find_user
       render json: find_user
     else
-      render json: {message: 'User not found'}, status: 404
+      bad_request!(message: 'User not found')
     end
   end
 
@@ -23,6 +23,26 @@ class UsersController < ApplicationController
     else
       bad_request!(create_user.errors.full_messages)
     end
+  end
+
+  def update
+    if current_user.update(user_update_params)
+      render json: current_user
+    else
+      bad_request! current_user: current_user.errors
+    end
+  end
+
+  private
+
+  def user_update_params
+    params.require(:user).permit(
+      :name,
+      :email,
+      :password,
+      :password_confirmation,
+      :location
+    )
   end
 
   def attrs
@@ -48,11 +68,11 @@ class UsersController < ApplicationController
   end
 
   def find_users
-    @users ||= User.paginate(page: page, per_page: per_page)
+    @find_users ||= User.paginate(page: page, per_page: per_page)
   end
 
   def users_count
-    @users.count
+    @find_users.count
   end
 
   def total_page_count
