@@ -1,0 +1,117 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+
+}
+
+.form {
+    width: 60%;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px #ccc;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+}
+.form_title {
+    text-align: center;
+    margin: 0 0 30px 0;
+}
+
+.form_group {
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.form_label {
+    display: block;
+    /* position: absolute; */
+    top: 0;
+    z-index: -1;
+    color: #000;
+    transition: 0.3s ;
+}
+
+/**/.form_text,
+.form_commit {
+    width: 100%;
+    padding: 0 0 5px 0;
+    border: none;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: transparent;
+    outline: none;
+    transition: 0.3s;
+
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    font-size: 16px;
+}
+
+
+.form_text:focus,
+.form_commit:focus  {
+    border-bottom: 1px solid #1a73a8;
+}
+
+.delete {
+    text-align:center;
+}
+
+.form_bottom_delete {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #0071f0;
+    outline: none; 
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form_bottom_delete:focus,
+.form_bottom_delete:hover {
+    background-color: rgb( 0, 113, 240, 0.7);
+}
+
+.foot {
+    display: flex;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.back_bottom {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #0071f0;
+    outline: none; 
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.back_bottom:focus,
+.back_bottom:hover {
+    background-color: rgb( 0, 113, 240, 0.7);
+    
+}
+
+.form_bottom {
+    /* margin-left: 60%; */
+    /* margin-top: 50px; */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #0071f0;
+    outline: none; 
+    cursor: pointer;
+    transition: 0.3s;
+}    
+
+.form_bottom:focus,
+.form_bottom:hover {
+    background-color: rgb( 0, 113, 240, 0.7);
+    
+}
