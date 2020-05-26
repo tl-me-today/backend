@@ -1,3 +1,18 @@
-test:
+default: &default
   adapter: postgresql
+  username: postgres
+  password:
   database: travis_ci_test
+  min_messages: ERROR
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  timeout: 5000
+  host: localhost
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
