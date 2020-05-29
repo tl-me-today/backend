@@ -54,7 +54,7 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = false
   config.assets.compile = true
-  config.force_ssl = true
+  config.force_ssl = false
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
