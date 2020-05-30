@@ -9,7 +9,7 @@ class Book < ApplicationRecord
 
     after_create :assign_default_role_to_user
 
-    def assign_default_role
+    def assign_default_role_to_user
       user.add_role(:admin) if user.roles.blank?
     end
 end
