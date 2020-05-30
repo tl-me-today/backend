@@ -1,15 +1,117 @@
 class BooksController < ApplicationController
-    before_action :authenticate_user!
+    before_action :find_books, only: [:index]
+    before_action :response_headers, only: [:index]
+    before_action :find_book, only: [:show]
+    before_action :check_range
+    before_action :check_pagination
+
     def index
-        @books = Book.all.limit(25)
-        render json: @books
+      render json: @find_books
     end
-
+  
     def show
-        @book = Book.find(params[:id])
-        render json: @book
+      if find_book
+        render json: find_book
+      else
+        bad_request!(message: 'Book not found')
+      end
+    end
+  
+    def create
+      if create_book.save
+        render json: create_book
+      else
+        bad_request!(create_book.errors.full_messages)
+      end
+    end
+  
+    def update
+      if update_book
+        render json: find_book.reload!
+      else
+        bad_request! find_book: find_book.errors
+      end
+    end
+  
+    private
+  
+    def book_update_params
+      params.require(:book).permit(
+        :name,
+        :original_name,
+        :catalog_id,
+        :author_id,
+        :group_id
+      )
+    end
+  
+    def attrs
+      {
+        name: params[:name],
+        range: params[:range],
+        author_id: params[:author_id],
+        user_id: params[:user_id],
+        catalog_id: params[:catalog_id],
+        group_id: params[:group_id],
+        original_name: params[:original_name]
+      }
     end
 
-    def create
+    def update_book
+      bad_request!(book: 'Book not found') if !find_book
+      
+      find_book.update(book_update_params)
+    end
+  
+    def find_book
+      @find_book ||= Book.where(id: params[:id])&.first
+    end
+  
+    def create_book
+      @create_book ||= Book.new(attrs)
+    end
+  
+    def range
+      @range ||= Ranges.new(range_attrs: attrs[:range])
+    end
+
+    def pagination
+      @pagination ||= Pagination.new(current_page: params.fetch(:page, 1), current_page_size: params.fetch(:page_size, 15))
+    end
+
+    def check_range
+      bad_request!(range.errors.full_messages) if range.invalid?
+    end
+
+    def check_pagination
+      bad_request!(pagination.errors.full_messages) if pagination.invalid?
+    end
+
+    def find_books
+      scope = Book
+      scope = scope.where(user_id: attrs[:user_id]) if attrs[:user_id].present?
+      scope = scope.where(created_at: range) if range.present?
+      scope = scope.where(author_id: attrs[:author_id]) if attrs[:author_id].present?
+      scope = scope.where(group_id: attrs[:group_id]) if attrs[:group_id].present?
+      scope = scope.where(catalog_id: attrs[:catalog_id]) if attrs[:catalog_id].present?
+      scope = scope.where(original_name: attrs[:original_name]) if attrs[:original_name].present?
+      scope = scope.where(name: attrs[:name]) if attrs[:name].present?
+
+      @find_books ||= Book.paginate(page: pagination.page, per_page: pagination.page_size)
+    end
+  
+    def books_count
+      @find_books.count
+    end
+  
+    def total_page_count
+      books_count / pagination.page_size
+    end
+  
+    def response_headers
+      response.headers['X-Total-Pages-Count'] = total_page_count.to_s
+      response.headers['X-Page-Index'] = pagination.page.to_s
+      response.headers['X-Per-Page'] = pagination.page_size.to_s
+      response.headers['X-Total-Count'] = books_count.to_s
     end
 end

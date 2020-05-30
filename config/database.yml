@@ -17,10 +17,10 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: postgres
-  password: Frylin2019
-  host: 192.168.31.54
-  port: 5432
+  username: <%= ENV.fetch("DEV_USER") %>
+  password: <%= ENV.fetch("DEV_PASS") %>
+  host: <%= ENV.fetch("DEV_HOST") %>
+  port: <%= ENV.fetch("DEV_PORT") %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
