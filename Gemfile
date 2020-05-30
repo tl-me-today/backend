@@ -56,3 +56,4 @@ gem "rubocop", "~> 0.84.0"
 gem "devise", "~> 4.7"
 
 gem "rspec", "~> 3.9"
+gem 'apipie-rails'

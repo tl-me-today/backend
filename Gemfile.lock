@@ -60,6 +60,8 @@ GEM
       activerecord (>= 5.0, < 6.1)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    apipie-rails (0.5.18)
+      rails (>= 4.1)
     ast (2.4.0)
     attr_extras (6.2.3)
     bcrypt (3.1.13)
@@ -242,6 +244,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on (~> 6.0)
+  apipie-rails
   attr_extras (~> 6.2, >= 6.2.3)
   bootsnap (>= 1.4.2)
   byebug

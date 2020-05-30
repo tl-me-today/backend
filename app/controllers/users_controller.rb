@@ -7,10 +7,15 @@ class UsersController < ApplicationController
   before_action :check_range
   before_action :check_pagination
 
+  api :GET, '/users/'
+  formats ['json']
   def index
     render json: @find_users
   end
 
+  api :GET, '/users/:id/'
+  param :id, :number, desc: 'id of the user', :required => true
+  formats ['json']
   def show
     if find_user
       render json: find_user
@@ -19,6 +24,11 @@ class UsersController < ApplicationController
     end
   end
 
+  api :POST, '/users/'
+  param :name, String, desc: "user's name", :required => true
+  param :email, String, desc: "user's email", :required => true
+  param :password, :number, desc: "user's password", :required => true
+  param :location, :number, desc: 'user location', :required => false
   def create
     if create_user.save
       render json: create_user
@@ -27,6 +37,12 @@ class UsersController < ApplicationController
     end
   end
 
+  api :PATCH, '/users/'
+  param :name, String, desc: "user's name", :required => false
+  param :email, String, desc: "user's email", :required => false
+  param :password, :number, desc: "user's password", :required => false
+  param :location, :number, desc: 'user location', :required => false
+  param :group_id, :number, desc: 'user group_id', :required => false
   def update
     if current_user.update(user_update_params)
       render json: current_user
