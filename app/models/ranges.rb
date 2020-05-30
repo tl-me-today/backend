@@ -11,7 +11,7 @@ class Ranges
     end
 
     def range
-      range_start.to_date..range_end.to_date
+      range_start&.to_date..range_end&.to_date
     end
   end
   

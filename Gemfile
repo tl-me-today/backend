@@ -57,3 +57,4 @@ gem "devise", "~> 4.7"
 
 gem "rspec", "~> 3.9"
 gem 'apipie-rails'
+gem "rolify"

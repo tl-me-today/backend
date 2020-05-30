@@ -109,7 +109,7 @@ class BooksController < ApplicationController
     def find_books
       scope = Book
       scope = scope.where(user_id: attrs[:user_id]) if attrs[:user_id].present?
-      scope = scope.where(created_at: range) if range.present?
+      scope = scope.where(created_at: range.range) if attrs[:range].present?
       scope = scope.where(author_id: attrs[:author_id]) if attrs[:author_id].present?
       scope = scope.where(group_id: attrs[:group_id]) if attrs[:group_id].present?
       scope = scope.where(catalog_id: attrs[:catalog_id]) if attrs[:catalog_id].present?

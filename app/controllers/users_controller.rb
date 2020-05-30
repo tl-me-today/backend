@@ -7,15 +7,29 @@ class UsersController < ApplicationController
   before_action :check_range
   before_action :check_pagination
 
+  def_param_group :user do
+    param :name, String, desc: "user's name", :required => true
+    param :email, String, desc: "user's email", :required => true
+    param :password, :number, desc: "user's password", :required => true
+    param :location, :number, desc: 'user location', :required => false
+  end
+
+  def_param_group :errors do
+    formats ['json']
+    error :code => 401, :desc => "Unauthorized"
+    error :code => 404, :desc => "Not Found"
+    error :code => 500, :desc => "Server crashed for some <%= reason %>"
+  end
+
   api :GET, '/users/'
-  formats ['json']
+  param_group :errors
   def index
     render json: @find_users
   end
 
-  api :GET, '/users/:id/'
+  api :GET, '/users/:id/', "Show user profile"
   param :id, :number, desc: 'id of the user', :required => true
-  formats ['json']
+  param_group :errors
   def show
     if find_user
       render json: find_user
@@ -25,10 +39,8 @@ class UsersController < ApplicationController
   end
 
   api :POST, '/users/'
-  param :name, String, desc: "user's name", :required => true
-  param :email, String, desc: "user's email", :required => true
-  param :password, :number, desc: "user's password", :required => true
-  param :location, :number, desc: 'user location', :required => false
+  param_group :user
+  param_group :errors
   def create
     if create_user.save
       render json: create_user
@@ -38,10 +50,8 @@ class UsersController < ApplicationController
   end
 
   api :PATCH, '/users/'
-  param :name, String, desc: "user's name", :required => false
-  param :email, String, desc: "user's email", :required => false
-  param :password, :number, desc: "user's password", :required => false
-  param :location, :number, desc: 'user location', :required => false
+  param_group :user
+  param_group :errors
   param :group_id, :number, desc: 'user group_id', :required => false
   def update
     if current_user.update(user_update_params)
@@ -70,7 +80,7 @@ class UsersController < ApplicationController
       location: params[:location],
       range: params[:range],
       group_id: params[:group_id],
-      email: params[:email],
+      email: params[:email]
     }
   end
 
@@ -99,14 +109,14 @@ class UsersController < ApplicationController
   end
 
   def find_users
-    return @scope if @scope
+    return @find_users if @find_users
 
-    @scope = User
-    @scope = @scope.where(created_at: range) if range.present?
-    @scope = @scope.where(group_id: attrs[:group_id]) if attrs[:group_id].present?
-    @scope = @scope.where(email: attrs[:email]) if attrs[:email].present?
-    @scope = @scope.where(name: attrs[:name]) if attrs[:name].present?
-    @scope = @scope.paginate(page: page, per_page: per_page)
+    @find_users = User
+    @find_users = @find_users.where(created_at: range.range) if attrs[:range].present?
+    @find_users = @find_users.where(group_id: attrs[:group_id]) if attrs[:group_id].present?
+    @find_users = @find_users.where(email: attrs[:email]) if attrs[:email].present?
+    @find_users = @find_users.where(name: attrs[:name]) if attrs[:name].present?
+    @find_users = @find_users.paginate(page: pagination.page, per_page: pagination.page_size)
   end
 
   def users_count

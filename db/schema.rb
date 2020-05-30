@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_29_165819) do
+ActiveRecord::Schema.define(version: 2020_05_30_162239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 2020_05_29_165819) do
     t.string "name"
     t.string "original_name"
     t.integer "author_id"
-    t.integer "roles_id"
     t.text "description"
     t.integer "chapters_count"
     t.date "year"
@@ -42,8 +41,11 @@ ActiveRecord::Schema.define(version: 2020_05_29_165819) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"
-    t.text "tags_ids", default: [], array: true
-    t.text "genre_ids", default: [], array: true
+    t.index ["author_id"], name: "index_books_on_author_id"
+    t.index ["catalog_id"], name: "index_books_on_catalog_id"
+    t.index ["chapters_count"], name: "index_books_on_chapters_count"
+    t.index ["rating"], name: "index_books_on_rating"
+    t.index ["user_id"], name: "index_books_on_user_id"
   end
 
   create_table "chapters", force: :cascade do |t|
@@ -53,6 +55,8 @@ ActiveRecord::Schema.define(version: 2020_05_29_165819) do
     t.integer "volume_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_chapters_on_book_id"
+    t.index ["volume_id"], name: "index_chapters_on_volume_id"
   end
 
   create_table "taggings", id: :serial, force: :cascade do |t|
