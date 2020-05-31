@@ -59,3 +59,7 @@ gem "rspec", "~> 3.9"
 gem 'apipie-rails'
 gem "rolify"
 gem "to_bool", "~> 2.0"
+gem 'groupdate'
+gem 'money-rails', '~>1.12'
+gem 'friendly_id', '~> 5.2.4'
+gem "administrate"

@@ -10,7 +10,7 @@ class BookSettingsController < ApplicationController
     end
 
     api :GET, '/book_setting/:id/'
-    param :id, :number, desc: 'book_setting_id_loc', :required => true
+    param :id, :number, desc: 'book_id_loc', :required => true
     param_group :errors, ApplicationController
     def show
       if find_or_create_setting

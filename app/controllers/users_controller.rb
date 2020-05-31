@@ -8,20 +8,20 @@ class UsersController < ApplicationController
   before_action :check_pagination
 
   def_param_group :user do
-    param :name, String, desc: "user's name", :required => true
-    param :email, String, desc: "user's email", :required => true
-    param :password, :number, desc: "user's password", :required => true
-    param :location, :number, desc: 'user location', :required => false
+    param :name, String, desc: 'user_name_loc', required: true
+    param :email, String, desc: 'user_email_loc', required: true
+    param :password, :number, desc: 'user_password_loc', required: true
+    param :location, :number, desc: 'user_location_loc', required: false
   end
 
-  api :GET, '/users/'
+  api :GET, '/users/', 'users_index_loc'
   param_group :errors, ApplicationController
   def index
     render json: @find_users
   end
 
-  api :GET, '/users/:id/', "Show user profile"
-  param :id, :number, desc: 'id of the user', :required => true
+  api :GET, '/users/:id/', 'users_show_loc'
+  param :id, :number, desc: 'user_id_loc', required: true
   param_group :errors, ApplicationController
   def show
     if find_user
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     end
   end
 
-  api :POST, '/users/'
+  api :POST, '/users/', 'users_create_loc'
   param_group :user
   param_group :errors, ApplicationController
   def create
@@ -42,10 +42,10 @@ class UsersController < ApplicationController
     end
   end
 
-  api :PATCH, '/users/'
+  api :PATCH, '/users/', 'users_update_loc'
   param_group :user
   param_group :errors, ApplicationController
-  param :group_id, :number, desc: 'user group_id', :required => false
+  param :group_id, :number, desc: 'group_id_loc', required: false
   def update
     if current_user.update(user_update_params)
       render json: current_user

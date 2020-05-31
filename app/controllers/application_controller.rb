@@ -31,20 +31,22 @@ class ApplicationController < ActionController::Base
     end
 
     def user_signed_in_required
-      unless user_signed_in?
-        respond_to do |format|
-          format.json { deny_access! "You're not authorized" }
-          format.pdf  { deny_access! "You're not authorized" }
-          format.csv  { deny_access! "You're not authorized" }
-        end
+      return if user_signed_in?
+
+      respond_to do |format|
+        format.json { deny_access! "You're not authorized" }
+        format.pdf  { deny_access! "You're not authorized" }
+        format.csv  { deny_access! "You're not authorized" }
       end
     end
   end
 
   def_param_group :errors do
     formats ['json']
-    error :code => 401, :desc => "Unauthorized"
-    error :code => 404, :desc => "Not Found"
-    error :code => 500, :desc => "Server crashed for some <%= reason %>"
+    error code: 400, desc: 'Bad Request'
+    error code: 403, desc: 'Access denied'
+    error code: 401, desc: 'Unauthorized'
+    error code: 404, desc: 'Not Found'
+    error code: 500, desc: 'Server crashed for some <%= reason %>'
   end
 end

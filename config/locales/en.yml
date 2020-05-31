@@ -1,39 +1,44 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
   hello: "Hello world"
-  book_settings_can_download_loc: "Can users download the book"
-  book_settings_can_copied_loc: "can users copy text of the book"
-  book_settings_all_payment_loc: "can users pay all books except payment of the chapters"
-  book_settings_payment_loc: "may be book is free?"
-  book_settings_status_loc: "working status"
-  book_setting_id_loc: 'id of the book'
+
+  # Errors
+
+  unauthorized_loc: "Unauthorized"
+  page_not_found_loc: "Not Found"
+  bad_request_loc: "Bad Request"
+  access_denied_loc: "Access denied"
+  crash_loc: "Server crashed for some <%= reason %>"
+
+  # Assigned params
+
+  user_id_loc: "ID of the Creator (user)"
+  group_id_loc: "User group ID"
+  author_id_loc: "Book author ID"
+
+  # Booksetingscontroller
+
+  book_settings_can_download_loc: "Can the user download a book"
+  book_settings_can_copied_loc: "Can the user copy the text of the book"
+  book_settings_all_payment_loc: "Can the user buy the entire book"
+  book_settings_payment_loc: "Is the Book free?"
+  book_settings_status_loc: "Current work status"
+
+  # BooksController
+
+  book_name_loc: "The title of the book"
+  book_original_name_loc: "Original title of the book"
+  book_catalog_id_loc: "ID of the book location directory"
+  book_id_loc: "Book ID"
+
+  # UsersController
+
+  user_name_loc: "The title of the book"
+  user_email_loc: "Original title of the book"
+  user_password_loc: "ID of the folder where the book is located"
+  user_location_loc: "ID of the Author"
+
+  ## API
+  users_show_loc: "Show user profile"
+  users_create_loc: "Create user profile"
+  users_update_loc: "Update user profile"
+  users_index_loc: "Show all users"
