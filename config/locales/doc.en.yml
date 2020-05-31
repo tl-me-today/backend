@@ -31,9 +31,4 @@
 
 en:
   hello: "Hello world"
-  book_settings_can_download_loc: "Can users download the book"
-  book_settings_can_copied_loc: "can users copy text of the book"
-  book_settings_all_payment_loc: "can users pay all books except payment of the chapters"
-  book_settings_payment_loc: "may be book is free?"
-  book_settings_status_loc: "working status"
-  book_setting_id_loc: 'id of the book'
+  can_download_loc: "Can users download the book"

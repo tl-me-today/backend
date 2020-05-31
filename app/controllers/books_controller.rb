@@ -5,15 +5,23 @@ class BooksController < ApplicationController
     before_action :check_range
     before_action :check_pagination
 
+    def_param_group :book do
+      param :name, String, desc: 'name of the book', :required => true
+      param :original_name, String, desc: 'original_name of the book', :required => true
+      param :catalog_id, :number, desc: 'id of the books catalog', :required => true
+      param :author_id, :number, desc: 'id of the book author', :required => true
+      param :group_id, :number, desc: 'id of the user group'
+    end
+
     api :GET, '/books/'
-    formats ['json']
+    param_group :errors, ApplicationController
     def index
       render json: @find_books
     end
 
     api :GET, '/books/:id/'
     param :id, :number, desc: 'id of the book', :required => true
-    formats ['json']
+    param_group :errors, ApplicationController
     def show
       if find_book
         render json: find_book
@@ -23,12 +31,9 @@ class BooksController < ApplicationController
     end
   
     api :POST, '/books/'
-    param :name, String, desc: 'name of the book', :required => true
-    param :original_name, String, desc: 'original_name of the book', :required => true
-    param :catalog_id, :number, desc: 'id of the books catalog', :required => true
-    param :author_id, :number, desc: 'id of the book author', :required => true
-    param :group_id, :number, desc: 'id of the user group'
-    formats ['json']
+    param_group :book
+    param :user_id, :number, desc: 'id of the user', :required => true
+    param_group :errors, ApplicationController
     def create
       if create_book.save
         render json: create_book
@@ -38,12 +43,8 @@ class BooksController < ApplicationController
     end
 
     api :PATCH, '/books/'
-    param :name, String, desc: 'name of the book'
-    param :original_name, String, desc: 'original_name of the book'
-    param :catalog_id, :number, desc: 'id of the books catalog'
-    param :author_id, :number, desc: 'id of the book author'
-    param :group_id, :number, desc: 'id of the user group'
-    formats ['json']
+    param_group :book
+    param_group :errors, ApplicationController
     def update
       if update_book
         render json: find_book.reload!

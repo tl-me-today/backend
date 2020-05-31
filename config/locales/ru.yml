@@ -29,5 +29,11 @@
 # To learn more, please read the Rails Internationalization guide
 # available at https://guides.rubyonrails.org/i18n.html.
 
-en:
+ru:
   hello: "Привет мир"
+  book_settings_can_download_loc: "Может ли пользователь скачивать книгу"
+  book_settings_can_copied_loc: "Может ли пользователь копировать текст книги"
+  book_settings_all_payment_loc: "Может ли пользователь купить всю книгу целиком"
+  book_settings_payment_loc: "Книга бесплатна?"
+  book_settings_status_loc: "Текущий статус работы"
+  book_setting_id_loc: 'ID книги'

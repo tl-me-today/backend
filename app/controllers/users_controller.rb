@@ -14,22 +14,15 @@ class UsersController < ApplicationController
     param :location, :number, desc: 'user location', :required => false
   end
 
-  def_param_group :errors do
-    formats ['json']
-    error :code => 401, :desc => "Unauthorized"
-    error :code => 404, :desc => "Not Found"
-    error :code => 500, :desc => "Server crashed for some <%= reason %>"
-  end
-
   api :GET, '/users/'
-  param_group :errors
+  param_group :errors, ApplicationController
   def index
     render json: @find_users
   end
 
   api :GET, '/users/:id/', "Show user profile"
   param :id, :number, desc: 'id of the user', :required => true
-  param_group :errors
+  param_group :errors, ApplicationController
   def show
     if find_user
       render json: find_user
@@ -40,7 +33,7 @@ class UsersController < ApplicationController
 
   api :POST, '/users/'
   param_group :user
-  param_group :errors
+  param_group :errors, ApplicationController
   def create
     if create_user.save
       render json: create_user
@@ -51,7 +44,7 @@ class UsersController < ApplicationController
 
   api :PATCH, '/users/'
   param_group :user
-  param_group :errors
+  param_group :errors, ApplicationController
   param :group_id, :number, desc: 'user group_id', :required => false
   def update
     if current_user.update(user_update_params)
